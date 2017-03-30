@@ -8,6 +8,8 @@ const {
   TextInput
 } = ReactNative;
 
+const Button = require('../common/button');
+
 module.exports = React.createClass({
   render: function() {
     return (
@@ -19,8 +21,12 @@ module.exports = React.createClass({
         <TextInput style={[styles.input]}/>
         <Text style={[styles.label]}>Password:</Text>
         <TextInput secureTextEntry={true} style={[styles.input]}/>
+        <Button text={'Sign In'} onPress={this.onPress} />
       </View>
     );
+  },
+  onPress: function() {
+    //log the user in
   }
 });
 
