@@ -45,9 +45,43 @@ module.exports = React.createClass({
   },
   onPress: function() {
     //log the user in
-    this.setState({
-      password: ''
-    });
+    const url = 'http://10.1.10.16:3000/login';
+    const fetchOption = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: this.state.username,
+        password: this.state.password
+      })
+    };
+
+    fetch(url, fetchOption)
+      .then((response) => {
+        return response.json();
+      })
+      .then((json) => {
+        console.log(json);
+        const newState = {};
+
+        if(json && json.login === true) {
+          newState.username = 'Logged In';
+        } else {
+          newState.username = 'Rejected';
+        }
+
+        this.setState(newState);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+      this.setState({
+        password: ''
+      });
+
   }
 });
 
