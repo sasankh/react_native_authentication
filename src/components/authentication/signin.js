@@ -4,16 +4,17 @@ const ReactNative = require('react-native');
 const {
   View,
   Text,
-  StyleSheet
+  StyleSheet,
+  TextInput
 } = ReactNative;
-
-const Signin = require('./components/authentication/signin');
 
 module.exports = React.createClass({
   render: function() {
     return (
       <View style={[styles.container]}>
-        <Signin />
+        <Text>
+          Sign In
+        </Text>
       </View>
     );
   }
