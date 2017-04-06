@@ -24,9 +24,6 @@ module.exports = React.createClass({
   render: function() {
     return (
       <View style={[styles.container]}>
-        <Text>
-          Sign In
-        </Text>
 
         <Text style={[styles.label]}>Username:</Text>
         <TextInput
@@ -43,7 +40,7 @@ module.exports = React.createClass({
           onChangeText={(text) => this.setState({password: text})}
         />
 
-        <Text>{this.state.errorMessage}</Text>
+        <Text style={[styles.label]}>{this.state.errorMessage}</Text>
         <Button text={'Sign In'} onPress={this.onPress} />
       </View>
     );
