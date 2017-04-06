@@ -43,6 +43,7 @@ module.exports = React.createClass({
           onChangeText={(text) => this.setState({password: text})}
         />
 
+        <Text>{this.state.errorMessage}</Text>
         <Button text={'Sign In'} onPress={this.onPress} />
       </View>
     );
