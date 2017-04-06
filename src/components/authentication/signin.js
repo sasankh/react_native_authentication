@@ -45,7 +45,7 @@ module.exports = React.createClass({
   },
   onPress: function() {
     //log the user in
-    const url = 'http://10.1.10.16:3000/login';
+    const url = 'http://10.10.120.21:3000/login';
     const fetchOption = {
       method: 'POST',
       headers: {
