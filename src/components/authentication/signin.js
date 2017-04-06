@@ -2,6 +2,7 @@ const React = require('react');
 const ReactNative = require('react-native');
 const config = require('../../config/config');
 const API = require('../../config/API');
+const fetcher = require('../../util/fetcher');
 
 const {
   View,
@@ -16,7 +17,8 @@ module.exports = React.createClass({
   getInitialState: function() {
     return {
       username: '',
-      password: ''
+      password: '',
+      errorMessage: ''
     }
   },
   render: function() {
@@ -60,23 +62,41 @@ module.exports = React.createClass({
       })
     };
 
-    fetch(url, fetchOption)
+    fetcher.json(url, fetchOption)
       .then((response) => {
-        return response.json();
-      })
-      .then((json) => {
-        console.log(json);
-        const newState = {};
 
-        if(json && json.login === true) {
-          newState.username = 'Logged In';
+        const body = response.body;
+
+        if(response.ok) {
+
+          if(body && body.login === true) {
+            this.setState({
+              errorMessage : body.message
+            });
+          } else {
+            this.setState({
+              errorMessage : body.message
+            });
+          }
+
         } else {
-          newState.username = 'Rejected';
+
+          const newState = {};
+
+          if(body && body.login === false) {
+            newState.errorMessage = (body.message ? body.message : 'Login unsuccessfull');
+          } else {
+            newState.errorMessage = 'Unknown login problem';
+          }
+
+          this.setState(newState);
         }
 
-        this.setState(newState);
       })
       .catch((err) => {
+        this.setState({
+          errorMessage: 'There was a problem in the login'
+        });
         console.log(err);
       });
 
