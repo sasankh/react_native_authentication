@@ -1,5 +1,7 @@
 const React = require('react');
 const ReactNative = require('react-native');
+const config = require('../../config/config');
+const API = require('../../config/API');
 
 const {
   View,
@@ -45,7 +47,7 @@ module.exports = React.createClass({
   },
   onPress: function() {
     //log the user in
-    const url = 'http://10.10.120.21:3000/login';
+    const url = config.server + API.login;
     const fetchOption = {
       method: 'POST',
       headers: {
