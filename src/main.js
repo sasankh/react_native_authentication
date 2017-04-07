@@ -7,9 +7,11 @@ const {
 } = ReactNative;
 
 const Signin = require('./components/authentication/signin');
+const Signup = require('./components/authentication/signup');
 
 const ROUTES = {
-  signin: Signin
+  signin: Signin,
+  signup: Signup
 };
 
 module.exports = React.createClass({

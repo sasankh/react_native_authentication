@@ -1,3 +1,4 @@
 module.exports = {
-  login: "/login"
+  login: "/login",
+  signup: "/signup"
 };
