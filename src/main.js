@@ -2,27 +2,37 @@ const React = require('react');
 const ReactNative = require('react-native');
 
 const {
-  View,
-  Text,
-  StyleSheet
+  StyleSheet,
+  Navigator
 } = ReactNative;
 
 const Signin = require('./components/authentication/signin');
 
+const ROUTES = {
+  signin: Signin
+};
+
 module.exports = React.createClass({
+  componentWillMount: function() {},
+  renderScene: function(route, navigation) {
+    const Component = ROUTES[route.name];
+
+    return <Component />;
+  },
   render: function() {
     return (
-      <View style={[styles.container]}>
-        <Signin />
-      </View>
+      <Navigator
+      style={[styles.container]}
+      initialRoute={{ name: 'signin' }}
+      renderScene={this.renderScene}
+      configureScene={() => { return Navigator.SceneConfigs.FloatFromRight; }}
+      />
     );
   }
 });
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    flex: 1
   }
 });
