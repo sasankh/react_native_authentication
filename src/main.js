@@ -16,10 +16,10 @@ const ROUTES = {
 
 module.exports = React.createClass({
   componentWillMount: function() {},
-  renderScene: function(route, navigation) {
+  renderScene: function(route, navigator) {
     const Component = ROUTES[route.name];
 
-    return <Component />;
+    return <Component route={route} navigator={navigator}/>;
   },
   render: function() {
     return (
