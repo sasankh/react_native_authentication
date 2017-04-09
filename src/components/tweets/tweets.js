@@ -13,7 +13,7 @@ const Button = require('../common/button');
 module.exports = React.createClass({
   getInitialState: function() {
     return {
-      username: ''
+      username: null
     };
   },
   componentWillMount: function(){
@@ -30,12 +30,24 @@ module.exports = React.createClass({
     });
   },
   render: function() {
-    return (
-      <View style={[styles.container]}>
-        <Text>Welcome {this.state.username}</Text>
-        <Button text={'Log Out'} onPress={this.onPressLogOut} />
-      </View>
-    );
+    if (!this.state.username) {
+
+      return (
+        <View style={[styles.container]}>
+          <Text>Loading...</Text>
+        </View>
+      );
+
+    } else {
+
+      return (
+        <View style={[styles.container]}>
+          <Text>Welcome {this.state.username}</Text>
+          <Button text={'Log Out'} onPress={this.onPressLogOut} />
+        </View>
+      );
+
+    }
   },
   onPressLogOut: function() {
     AsyncStorage.removeItem('@MySuperStoreAuthentication:username');
