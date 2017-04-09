@@ -18,6 +18,7 @@ module.exports = React.createClass({
     return {
       username: '',
       password: '',
+      passwordConfirmation: '',
       errorMessage: ''
     }
   },
@@ -25,42 +26,68 @@ module.exports = React.createClass({
     return (
       <View style={[styles.container]}>
 
-        <Text style={[styles.label]}>Username:</Text>
-        <TextInput
-          style={[styles.input]}
-          value={this.state.username}
-          onChangeText={(text) => this.setState({username: text})}
-        />
+      <Text style={[styles.label]}>Username:</Text>
+      <TextInput
+      style={[styles.input]}
+      value={this.state.username}
+      onChangeText={(text) => this.setState({username: text})}
+      />
 
-        <Text style={[styles.label]}>Password:</Text>
-        <TextInput
-          secureTextEntry={true}
-          style={[styles.input]}
-          value={this.state.password}
-          onChangeText={(text) => this.setState({password: text})}
-        />
+      <Text style={[styles.label]}>Password:</Text>
+      <TextInput
+      secureTextEntry={true}
+      style={[styles.input]}
+      value={this.state.password}
+      onChangeText={(text) => this.setState({password: text})}
+      />
 
-        <Text style={[styles.label]}>{this.state.errorMessage}</Text>
-        <Button text={'Sign Up'} onPress={this.onPress} />
+      <Text style={[styles.label]}>Confirm Password:</Text>
+      <TextInput
+      secureTextEntry={true}
+      style={[styles.input]}
+      value={this.state.passwordConfirmation}
+      onChangeText={(text) => this.setState({passwordConfirmation: text})}
+      />
+
+      <Text style={[styles.label]}>{this.state.errorMessage}</Text>
+      <Button text={'Sign Up'} onPress={this.onPress} />
+      <Button text={'I have an account...'} onPress={this.onSigninPress} />
       </View>
     );
   },
-  onPress: function() {
-    //log the user in
-    const url = config.server + API.signup;
-    const fetchOption = {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password
-      })
-    };
+  comparePasswords: function() {
 
-    fetcher.json(url, fetchOption)
+    if(this.state.password !== this.state.passwordConfirmation) {
+      this.setState({
+        errorMessage: 'Passwords do not match'
+      });
+    } else {
+      this.setState({
+        errorMessage: ''
+      });
+    }
+
+  },
+  onSigninPress: function() {
+    this.props.navigator.pop();
+  },
+  onPress: function() {
+    if(this.state.password === this.state.passwordConfirmation) {
+
+      const url = config.server + API.signup;
+      const fetchOption = {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: this.state.username,
+          password: this.state.password
+        })
+      };
+
+      fetcher.json(url, fetchOption)
       .then((response) => {
 
         const body = response.body;
@@ -99,8 +126,17 @@ module.exports = React.createClass({
       });
 
       this.setState({
-        password: ''
+        password: '',
+        passwordConfirmation: ''
       });
+
+    } else {
+
+      this.setState({
+        errorMessage: 'Passwords do not match'
+      });
+
+    }
 
   }
 });
