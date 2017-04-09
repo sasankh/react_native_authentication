@@ -8,6 +8,8 @@ const {
   AsyncStorage
 } = ReactNative;
 
+const Button = require('../common/button');
+
 module.exports = React.createClass({
   getInitialState: function() {
     return {
@@ -15,7 +17,7 @@ module.exports = React.createClass({
     };
   },
   componentWillMount: function(){
-    AsyncStorage.getItem('@MySuperStore:username', (err, username) => {
+    AsyncStorage.getItem('@MySuperStoreAuthentication:username', (err, username) => {
       if(err || !username) {
         this.props.navigator.immediatelyResetRouteStack([
           {name: 'signin'}
@@ -31,8 +33,16 @@ module.exports = React.createClass({
     return (
       <View style={[styles.container]}>
         <Text>Welcome {this.state.username}</Text>
+        <Button text={'Log Out'} onPress={this.onPressLogOut} />
       </View>
     );
+  },
+  onPressLogOut: function() {
+    AsyncStorage.removeItem('@MySuperStoreAuthentication:username');
+
+    this.props.navigator.immediatelyResetRouteStack([
+      {name: 'signin'}
+    ]);
   }
 });
 

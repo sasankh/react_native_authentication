@@ -22,6 +22,9 @@ module.exports = React.createClass({
       errorMessage: ''
     }
   },
+  componentWillMount: function(){
+    AsyncStorage.removeItem('@MySuperStoreAuthentication:username');
+  },
   render: function() {
     return (
       <View style={[styles.container]}>
@@ -70,7 +73,7 @@ module.exports = React.createClass({
         if(response.ok) {
 
           if(body && body.login === true) {
-            AsyncStorage.setItem('@MySuperStore:username', this.state.username);
+            AsyncStorage.setItem('@MySuperStoreAuthentication:username', this.state.username);
 
             this.props.navigator.immediatelyResetRouteStack([
               {name: 'tweets'}
