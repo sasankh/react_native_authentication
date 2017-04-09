@@ -69,7 +69,9 @@ module.exports = React.createClass({
         if(response.ok) {
 
           if(body && body.login === true) {
-            this.props.navigator.push({name: 'tweets'});
+            this.props.navigator.immediatelyResetRouteStack([
+              {name: 'tweets'}
+            ]);
           } else {
             this.setState({
               errorMessage : body.message
