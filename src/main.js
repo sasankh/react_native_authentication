@@ -8,10 +8,12 @@ const {
 
 const Signin = require('./components/authentication/signin');
 const Signup = require('./components/authentication/signup');
+const Tweets = require('./components/tweets/tweets');
 
 const ROUTES = {
   signin: Signin,
-  signup: Signup
+  signup: Signup,
+  tweets: Tweets
 };
 
 module.exports = React.createClass({

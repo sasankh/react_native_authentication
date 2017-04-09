@@ -82,9 +82,7 @@ module.exports = React.createClass({
         if(response.ok) {
 
           if(body && body.signup === true) {
-            this.setState({
-              errorMessage : body.message
-            });
+            this.props.navigator.push({name: 'tweets'});
           } else {
             this.setState({
               errorMessage : body.message
