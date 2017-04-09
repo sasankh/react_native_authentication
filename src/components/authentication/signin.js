@@ -8,7 +8,8 @@ const {
   View,
   Text,
   StyleSheet,
-  TextInput
+  TextInput,
+  AsyncStorage
 } = ReactNative;
 
 const Button = require('../common/button');
@@ -69,6 +70,8 @@ module.exports = React.createClass({
         if(response.ok) {
 
           if(body && body.login === true) {
+            AsyncStorage.setItem('@MySuperStore:username', this.state.username);
+
             this.props.navigator.immediatelyResetRouteStack([
               {name: 'tweets'}
             ]);
