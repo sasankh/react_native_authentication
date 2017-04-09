@@ -55,19 +55,6 @@ module.exports = React.createClass({
       </View>
     );
   },
-  comparePasswords: function() {
-
-    if(this.state.password !== this.state.passwordConfirmation) {
-      this.setState({
-        errorMessage: 'Passwords do not match'
-      });
-    } else {
-      this.setState({
-        errorMessage: ''
-      });
-    }
-
-  },
   onSigninPress: function() {
     this.props.navigator.pop();
   },
