@@ -42,7 +42,7 @@ module.exports = React.createClass({
 
       return (
         <View style={[styles.container]}>
-          <Text>Welcome {this.state.username}</Text>
+          <Text>Welcome {this.state.username}!!!</Text>
           <Button text={'Log Out'} onPress={this.onPressLogOut} />
         </View>
       );
